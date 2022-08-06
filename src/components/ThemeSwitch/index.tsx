@@ -2,10 +2,9 @@ import React, {FC} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {darkTheme, lightTheme, partyTheme} from '../../themes';
+import {darkTheme, lightTheme} from '../../themes';
 import {setTheme, themeSelector} from '../../features/themeSlice';
 
-let activeTheme = 0;
 const themes = [
   darkTheme,
   lightTheme,
@@ -32,12 +31,13 @@ export const ThemeSwitch: FC = () => {
   const dispatch = useDispatch();
   const {theme} = useSelector(themeSelector);
 
-  const toggleTheme = () => {
-    activeTheme = !themes[activeTheme + 1] ? 0 : ++activeTheme;
-    dispatch(setTheme(themes[activeTheme]));
+  const onClickToggleTheme = () => {
+    const currentThemeNum = themes.findIndex(x => x.name === theme.name);
+    const newTheme = currentThemeNum === themes.length - 1  ? themes[0] : themes[currentThemeNum + 1]
+    dispatch(setTheme(newTheme));
   }
 
-  return <StyledButton onClick={() => toggleTheme()}>
+  return <StyledButton onClick={() => onClickToggleTheme()}>
     {theme.name === 'dark' ? (<i className="fa fa-sun"></i>) : (<i className="fa fa-moon"></i>)}
   </StyledButton>
 }

@@ -9,7 +9,7 @@ const Section = styled.section`
   flex-direction: column;
   height: 100%;
   flex: 1;
-  padding: 110px var(--unit);
+  padding: 60px var(--unit);
 `
 const Title = styled.h1`
   margin: 0 0 15px 0;

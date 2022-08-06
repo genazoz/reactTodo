@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import {store} from './app/store';
+import {store, persistor} from './app/store';
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <App/>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <App/>
+        </Router>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

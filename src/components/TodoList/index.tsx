@@ -1,105 +1,92 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import styled from "styled-components";
-import {Todo} from "../";
+import {Todo, TodosSearch} from "../";
+import {commonTheme} from "../../themes";
+import {useSelector} from "react-redux";
+import {todosSelector} from "../../features/todoSlice";
 
 const Container = styled.div`
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 38px 25px;
+  padding: 28px 25px;
 
   background-color: ${(props: any) => props.theme.SECONDARY_BACKGROUND_COLOR};
   border-radius: 30px;
   border: unset;
-`
-const Wrapper = styled.div`
-  position: relative;
 
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width:100%;
-  height: 45px;
-  margin: 0 0 20px 0;
-  padding: 0 15px 0 10px;
+  @media (max-width: ${commonTheme.media.tab}) {
+    padding: 20px;
 
-  border-radius: 13px;
-  background: ${props => props.theme.TERTIARY_BACKGROUND_COLOR};
-
-  i {
-    padding: 7px;
-
-    border-radius: 7px;
-    font-size: 12px;
-    color: ${props => props.theme.THEME_BUTTON_COLOR_A};
-    background: ${props => props.theme.THEME_BUTTON_BACKGROUND_A};
-  }
-`
-const Title = styled.h2`
-  margin: 0 0 15px 0;
-
-  font-size: 18px;
-  font-weight: 500;
-  color: ${props => props.theme.THEME_BUTTON_BACKGROUND_A}
-`
-const Search = styled.input`
-  display: flex;
-  width: 100%;
-
-  color: #FFFFFF;
-
-  &::placeholder {
-    color: rgba(255, 255, 255, .6);
+    border-radius: 25px;
   }
 `
 const TodosList = styled.div`
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  flex: 1;
+  margin: 0 -23px -25px 0;
+  padding: 0 23px 25px 0;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .15);
+    border-radius: 10px;
+  }
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    max-height: 170px;
+    margin: 0 -20px -20px 0;
+    padding: 0 20px 20px 0;
+  }
+`
+const NotFound = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin: auto;
+
+  font-family: ${commonTheme.fonts.Inter};
+  color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
 `
 
-const todos = [
-  {
-    completed: '50%',
-    title: 'Add new layer',
-    text: 'Product Design'
-  },
-  {
-    completed: '50%',
-    title: 'Complete task',
-    text: 'Product Design'
-  },
-  {
-    completed: '50%',
-    title: 'Team Meeting',
-    text: 'Product Design'
-  },
-  {
-    completed: '50%',
-    title: 'Desktop App Redesign',
-    text: 'Product Design'
-  },
-  {
-    completed: '50%',
-    title: 'Mobile App Redesign',
-    text: 'Product Design'
-  },
-]
+enum searchStatus {
+  NOT_FOUNDED = 'Не найдено',
+  ADD_TODO = 'Добавьте todo'
+}
 
-export const TodoList: FC = () => {
+export const TodoList: FC = memo(() => {
+  const {todos, searchQuery} = useSelector(todosSelector)
+
+  const filteredTodos = !searchQuery
+    ? todos
+    : todos.filter((todo) =>
+      todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
   return (
     <Container>
-      <Title>
-        Todo List
-      </Title>
-      <Wrapper>
-        <i className="far fa-search" aria-hidden="true"></i>
-        <Search placeholder={'Search todos...'}></Search>
-      </Wrapper>
-      <TodosList>
-        {todos.map((todo) => <Todo {...todo} />)}
-      </TodosList>
+      <TodosSearch/>
+      {filteredTodos.length > 0
+        ?
+        <TodosList>
+          {filteredTodos.map((todo) => <Todo {...todo} key={todo.id}/>).reverse()}
+        </TodosList>
+        :
+        <NotFound>
+          {searchQuery
+            ? searchStatus.NOT_FOUNDED
+            : searchStatus.ADD_TODO}
+        </NotFound>
+      }
     </Container>
   );
-};
+});
