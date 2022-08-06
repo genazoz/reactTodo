@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "NeueHaas";
+    src: url("./NeueHaasDisplay-Roman.woff2") format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+@font-face {
+    font-family: "NeueHaas";
+    src: url("./NeueHaasDisplay-Medium.woff2") format('woff2');
+    font-style: normal;
+    font-weight: 500;
+}
