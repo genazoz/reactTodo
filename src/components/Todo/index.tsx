@@ -111,6 +111,10 @@ const Wrapper = styled.div<{ isEdited: boolean }>`
 
   .todo:hover & {
     width: calc(100% - 70px);
+
+    @media (max-width: ${commonTheme.media.tab}) {
+      width: calc(100% - 90px);
+    }
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
