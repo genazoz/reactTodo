@@ -23,7 +23,6 @@ const TodoEl = styled.div<{ isEdited: boolean }>`
   cursor: pointer;
 
   &:nth-last-child(1):not(:nth-child(1)) div {
-    padding-bottom: 0;
   }
 
   &:nth-last-child(1) div {
@@ -51,14 +50,17 @@ const IconWrapper = styled.div<{ status: string }>`
   border-radius: 12px;
   border: 1px solid ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
 
-
   i {
     font-size: 14px;
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
+    
+    i {
+      font-size: 17px;
+    }
   }
 
   ${props => props.status === TodoStatusEnum.WAITING && `
@@ -113,7 +115,7 @@ const Wrapper = styled.div<{ isEdited: boolean }>`
 
   @media (max-width: ${commonTheme.media.tab}) {
     width: calc(100% - 90px);
-    padding: 12px 0;
+    padding: 15px 0;
   }
 
   ${props => props.isEdited && `
@@ -140,7 +142,7 @@ const Title = styled.span<{ status: string }>`
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
-    font-size: ${commonTheme.fontSizes.s};
+    font-size: ${commonTheme.fontSizes.r};
   }
 
   ${props => props.status === TodoStatusEnum.FINISHED && `
@@ -166,6 +168,10 @@ const Button = styled.button`
   justify-content: center;
   width: 40px;
   height: auto;
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    font-size: 16px;
+  }
 `
 const Remove = styled(Button)`
   display: none;
