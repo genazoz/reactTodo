@@ -20,7 +20,7 @@ const Header = styled.header`
 `
 const Title = styled.h1`
   font-size: 34px;
-  font-weight: 500;
+  font-weight: 600;
 `
 const Buttons = styled.div`
   display: flex;
@@ -99,17 +99,17 @@ export const TodoEditorHeader: FC = () => {
 
   return (
     <Header>
-      <Title>React Todos</Title>
+      <Title>Список задач</Title>
       <Buttons>
         {
           isEdit
             ? <Button isDisabled={editorQuery ? editorQuery.length < 3 : true} isEdit={isEdit} onClick={onClickUpdateTodo}>
               <i className="fal fa-check" aria-hidden="true"></i>
-              Сохранить
+              { window.innerWidth > parseInt(commonTheme.media.tab) && 'Сохранить'}
             </Button>
             : <Button isDisabled={editorQuery ? editorQuery.length < 3 : true} onClick={onClickAddTodo}>
               <i className="fal fa-plus" aria-hidden="true"></i>
-              Добавить
+              { window.innerWidth > parseInt(commonTheme.media.tab) && 'Добавить'}
             </Button>
         }
         <BellButton>

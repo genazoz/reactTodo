@@ -1,6 +1,5 @@
 export const commonTheme = {
   fonts: {
-    NeueHaas: "NeueHaas",
     Inter: "Inter"
   },
   fontSizes: {

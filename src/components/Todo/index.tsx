@@ -56,6 +56,11 @@ const IconWrapper = styled.div<{ status: string }>`
     font-size: 14px;
   }
 
+  @media (max-width: ${commonTheme.media.tab}) {
+    width: 40px;
+    height: 40px;
+  }
+
   ${props => props.status === TodoStatusEnum.WAITING && `
     border: 1px solid ${props.theme.WAITING_TODO_COLOR};
     background: ${props.theme.WAITING_TODO_COLOR};
@@ -104,6 +109,7 @@ const Wrapper = styled.div<{ isEdited: boolean }>`
 
   @media (max-width: ${commonTheme.media.tab}) {
     width: calc(100% - 90px);
+    padding: 12px 0;
   }
 
   ${props => props.isEdited && `
@@ -117,10 +123,9 @@ const Title = styled.span<{ status: string }>`
   font-family: ${commonTheme.fonts.Inter};
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 12.5px;
   color: ${props => props.theme.SENARY_BACKGROUND_COLOR};
-  letter-spacing: .2px;
 
   span {
     color: ${props => props.theme.SUCCESS_TODO_COLOR};
@@ -131,8 +136,7 @@ const Title = styled.span<{ status: string }>`
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
-    font-size: 16px;
-    letter-spacing: 0;
+    font-size: ${commonTheme.fontSizes.s};
   }
 
   ${props => props.status === TodoStatusEnum.FINISHED && `
@@ -141,12 +145,16 @@ const Title = styled.span<{ status: string }>`
   `}
 `
 const Text = styled.span`
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 500;
   color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
-  letter-spacing: .35px;
 
   .todo:hover & {
     opacity: .3;
+  }
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    font-size: 12px;
   }
 `
 const Button = styled.button`

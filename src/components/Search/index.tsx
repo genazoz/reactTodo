@@ -18,8 +18,12 @@ const Wrapper = styled.div`
   i {
     padding: 7px 3px 7px 7px;
 
-    font-size: 12px;
+    font-size: 13px;
     color: ${props => props.theme.QUINARY_BACKGROUND_COLOR};
+
+    @media (max-width: ${commonTheme.media.tab}) {
+      font-size: ${commonTheme.fontSizes.s};
+    }
   }
 `
 const SearchEl = styled.input`
@@ -29,9 +33,15 @@ const SearchEl = styled.input`
   color: #FFFFFF;
 
   font-family: ${commonTheme.fonts.Inter};
+  font-size: 13px;
+  font-weight: 600;
 
   &::placeholder {
-    color: ${props => props.theme.QUINARY_BACKGROUND_COLOR};
+    color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
+  }
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    font-size: ${commonTheme.fontSizes.s};
   }
 `
 

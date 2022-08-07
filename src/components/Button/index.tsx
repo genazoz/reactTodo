@@ -5,7 +5,8 @@ import {commonTheme} from "../../themes";
 const ButtonEl = styled.button<{ isDisabled: boolean, isEdit?: boolean }>`
   display: flex;
   align-items: center;
-  padding: 12px 17px 12px 20px;
+  gap: 8px;
+  padding: 12px 20px 12px 20px;
 
   font-family: ${commonTheme.fonts.Inter};
   font-size: 13px;
@@ -25,9 +26,9 @@ const ButtonEl = styled.button<{ isDisabled: boolean, isEdit?: boolean }>`
   }
 
   i {
-    margin: 1px 8px 0 0;
+    margin: 1px 0 0 0;
 
-    font-size: 16px;
+    font-size: 15px;
   }
 
   ${(props) => props.isDisabled && `

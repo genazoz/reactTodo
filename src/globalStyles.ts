@@ -16,7 +16,7 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 16px;
-    font-family: "NeueHaas";
+    font-family: ${commonTheme.fonts.Inter};
     color: white;
     background-color: ${(props: any) => props.theme.PRIMARY_BACKGROUND_COLOR};
   }
@@ -41,7 +41,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a, p {
-    font-family: ${commonTheme.fonts.NeueHaas};
+    font-family: ${commonTheme.fonts.Inter};
     font-size: ${commonTheme.fontSizes.r};
 
     @media (max-width: ${commonTheme.media.mob}) {
@@ -54,7 +54,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   input, button {
-    font-family: ${commonTheme.fonts.NeueHaas};
+    font-family: ${commonTheme.fonts.Inter};
     font-weight: 500;
     
     outline: none;

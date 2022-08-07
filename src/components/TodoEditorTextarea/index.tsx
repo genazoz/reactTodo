@@ -13,6 +13,7 @@ const Textarea = styled.textarea`
 
   font-family: ${commonTheme.fonts.Inter};
   font-size: 25px;
+  font-weight: 600;
   color: #FFFFFF;
 
   resize: none;
