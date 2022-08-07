@@ -59,6 +59,10 @@ const NotFound = styled.span`
   color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
   
   pointer-events: none;
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    font-size: 16px;
+  }
 `
 const TodosSearchWrapper = styled.div`
   margin: -7px -6px 0 -6px;
