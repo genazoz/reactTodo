@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   i {
     margin: 6px 0 0 0;
     
-    color: ${(props: any) => props.theme.QUATERNARY_BACKGROUND_COLOR};
+    color:  ${props => props.theme.BACKGROUND_COLOR};
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 
     i {
       margin: auto;
-      color: ${(props: any) => props.theme.QUINARY_BACKGROUND_COLOR};
+      color: ${(props: any) => props.theme.QUATERNARY_BACKGROUND_COLOR};
     }
   }
 `
@@ -71,7 +71,6 @@ const Textarea = styled.textarea`
     &::placeholder {
       color: ${(props: any) => props.theme.QUATERNARY_BACKGROUND_COLOR};
     }
-
   }
 `
 

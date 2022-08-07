@@ -56,7 +56,7 @@ const NotFound = styled.span`
 
   font-size: ${commonTheme.fontSizes.s};
   font-family: ${commonTheme.fonts.Inter};
-  color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
+  color: ${props => props.theme.BACKGROUND_COLOR};
   
   pointer-events: none;
 
