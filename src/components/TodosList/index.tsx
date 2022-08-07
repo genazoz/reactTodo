@@ -58,7 +58,7 @@ const NotFound = styled.span`
   color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
 `
 const TodosSearchWrapper = styled.div`
-  margin: -9px -8px 0 -8px;
+  margin: -7px -6px 0 -6px;
 `
 
 enum searchStatus {

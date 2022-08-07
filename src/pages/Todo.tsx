@@ -5,8 +5,8 @@ import {Sidebar, TodosList} from "../components/";
 import TodoEditor from "../components/TodoEditor";
 
 const mobGap = 30;
-const paddingYTop = 30;
-const paddingYBottom = 100;
+const paddingYTop = 50;
+const paddingYBottom = 30;
 
 const Section = styled.section`
   display: flex;
@@ -26,21 +26,21 @@ const Section = styled.section`
     padding: ${paddingYTop}px var(--unit) ${paddingYBottom}px var(--unit)
   }
 `
-const Container = styled.div`
-  @media (max-width: ${commonTheme.media.tab}) {
+const Aside = styled.div<{ isResizing: boolean }>`
+  transition: .3s transform;
+
+  @media(max-width: ${commonTheme.media.tab}) {
     display: flex;
     height: inherit;
-    max-height: calc(100vh / 2 - ${(paddingYTop + paddingYBottom) /2}px - ${mobGap / 2}px);
+    max-height: calc(100vh - ${(paddingYTop + paddingYBottom)}px - ${mobGap}px - 133px);
     min-height: 250px;
-  }`
-const Aside = styled(Container)<{ isResizing: boolean }>`
-
-  transition: .3s transform;
+  }
+  
   ${(props) => props.isResizing && `
     transform: scale(.97);
-  `}
+  `} 
 `
-const Content = styled(Container)<{ isResizing: boolean }>`
+const Content = styled.div<{ isResizing: boolean }>`
   position: relative;
 
   display: flex;

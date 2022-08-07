@@ -25,12 +25,19 @@ const Textarea = styled.textarea`
     color: ${(props: any) => props.theme.TERTIARY_BACKGROUND_COLOR};
   }
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (max-width: ${commonTheme.media.tab}) {
-    height: 400px;
-    padding: 25px;
+    overflow-x: scroll; 
+    height: 70px;
+    padding: 25px 30px;
 
-    font-size: 25px;
+    font-size: 16px;
 
+    resize: none;
+    white-space: nowrap;
     border-radius: 25px;
   }
 `

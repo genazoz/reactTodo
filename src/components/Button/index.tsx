@@ -13,7 +13,7 @@ const ButtonEl = styled.button<{ isDisabled: boolean, isEdit?: boolean }>`
   letter-spacing: .3px;
   color: ${props => props.theme.THEME_BUTTON_COLOR_A};
 
-  border-radius: 14px;
+  border-radius: 50px;
   border: 1px solid transparent;
   cursor: pointer;
   background: ${props => props.theme.THEME_BUTTON_BACKGROUND_A};

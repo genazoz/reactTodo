@@ -21,10 +21,6 @@ const Header = styled.header`
 const Title = styled.h1`
   font-size: 34px;
   font-weight: 500;
-
-  @media (max-width: ${commonTheme.media.tab}) {
-    font-size: 28px;
-  }
 `
 const Buttons = styled.div`
   display: flex;
@@ -103,7 +99,7 @@ export const TodoEditorHeader: FC = () => {
 
   return (
     <Header>
-      <Title>Frontend Todos</Title>
+      <Title>React Todos</Title>
       <Buttons>
         {
           isEdit
