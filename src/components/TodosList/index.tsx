@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 28px 25px;
+  padding: 22px;
 
   background-color: ${(props: any) => props.theme.SECONDARY_BACKGROUND_COLOR};
   border-radius: 30px;
@@ -23,13 +23,13 @@ const Container = styled.div`
     border-radius: 25px;
   }
 `
-const TodosList = styled.div`
+const TodosListEl = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin: 0 -23px -25px 0;
-  padding: 0 23px 25px 0;
+  margin: 0 -22px -22px 0;
+  padding: 12px 22px 17px 0;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -42,9 +42,9 @@ const TodosList = styled.div`
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
-    max-height: 170px;
+    max-height: unset;
     margin: 0 -20px -20px 0;
-    padding: 0 20px 20px 0;
+    padding: 10px 20px 20px 0;
   }
 `
 const NotFound = styled.span`
@@ -57,13 +57,16 @@ const NotFound = styled.span`
   font-family: ${commonTheme.fonts.Inter};
   color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
 `
+const TodosSearchWrapper = styled.div`
+  margin: -9px -8px 0 -8px;
+`
 
 enum searchStatus {
   NOT_FOUNDED = 'Не найдено',
   ADD_TODO = 'Добавьте todo'
 }
 
-export const TodoList: FC = memo(() => {
+export const TodosList: FC = memo(() => {
   const {todos, searchQuery} = useSelector(todosSelector)
 
   const filteredTodos = !searchQuery
@@ -74,12 +77,14 @@ export const TodoList: FC = memo(() => {
 
   return (
     <Container>
-      <TodosSearch/>
+      <TodosSearchWrapper>
+        <TodosSearch/>
+      </TodosSearchWrapper>
       {filteredTodos.length > 0
         ?
-        <TodosList>
+        <TodosListEl>
           {filteredTodos.map((todo) => <Todo {...todo} key={todo.id}/>).reverse()}
-        </TodosList>
+        </TodosListEl>
         :
         <NotFound>
           {searchQuery

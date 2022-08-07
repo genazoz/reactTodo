@@ -1,5 +1,5 @@
 import React from 'react';
-import {Header} from './components';
+import {ThemeSwitch} from './components';
 import Router from "./routes";
 import {useSelector} from "react-redux";
 import {themeSelector} from "./features/themeSlice";
@@ -14,7 +14,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles/>
       <FontStyles/>
-      <Header/>
+      <ThemeSwitch/>
       <Router/>
     </ThemeProvider>
   );

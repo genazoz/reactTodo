@@ -2,37 +2,40 @@ import React, {FC, useRef} from 'react';
 import styled from "styled-components";
 import {commonTheme} from "../../themes";
 
-const SidebarWrapper = styled.div`
+const SidebarEl = styled.div`
   position: relative;
 
   display: flex;
   width: 300px;
   min-width: 300px;
   max-width: 450px;
-  height: auto;
-  padding: 30px 35px 60px 0;
+  height: 100%;
+  padding: 30px 40px 60px 0;
 
   cursor: auto;
 
   @media (max-width: ${commonTheme.media.tab}) {
-    width: 100% !important;
-    max-width: 100%;
+    width: 100% !important; 
+    max-width: unset;
+    min-width: unset;
+    height: auto;
     padding: 0;
-    margin: 0px 0 50px 0;
   }
 `
-const Divider = styled.div`
+const Divider = styled.div<{ isResizing: boolean }>`
   position: absolute;
   z-index: 2;
   top: 0;
-  right: -20px;
+  right: -38px;
 
   display: flex;
-  width: 40px;
+  width: 76px;
   height: 100%;
   cursor: col-resize;
 
   opacity: .5;
+  
+  transition: .3s right;
 
   &::before {
     content: '';
@@ -54,15 +57,20 @@ const Divider = styled.div`
   @media (max-width: ${commonTheme.media.tab}) {
     display: none;
   }
+
+  ${(props) => props.isResizing && `
+    right: -49px;
+  `}
 `
 
 type SidebarPropsType = {
   children: React.ReactNode;
-  setIsResizing: (param: boolean) => void;
+  setIsResizing?: (param: boolean) => void;
+  isResizing?: boolean;
   resizable?: boolean;
 }
 
-export const Sidebar: FC<SidebarPropsType> = ({children, setIsResizing, resizable = false}) => {
+export const Sidebar: FC<SidebarPropsType> = ({children, setIsResizing, isResizing = false, resizable = false}) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
 
@@ -77,12 +85,18 @@ export const Sidebar: FC<SidebarPropsType> = ({children, setIsResizing, resizabl
     sidebar.style.width = `${mouseX - sidebarLeft}px`;
   };
   const endDrag = () => {
+    if(!setIsResizing)
+      return 0;
+
     setIsResizing(false);
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', endDrag);
   };
   const onMouseDownDivider = (e: any) => {
     e.preventDefault();
+
+    if(!setIsResizing)
+      return 0;
 
     setIsResizing(true);
     document.addEventListener('mousemove', drag);
@@ -94,15 +108,15 @@ export const Sidebar: FC<SidebarPropsType> = ({children, setIsResizing, resizabl
       {
         resizable
           ? (
-            <SidebarWrapper ref={sidebarRef} onMouseDown={(e) => e.stopPropagation()}>
+            <SidebarEl ref={sidebarRef} onMouseDown={(e) => e.stopPropagation()}>
               {children}
-              <Divider ref={dividerRef} onMouseDown={(e) => onMouseDownDivider(e)}/>
-            </SidebarWrapper>
+              <Divider isResizing={isResizing} ref={dividerRef} onMouseDown={(e) => onMouseDownDivider(e)}/>
+            </SidebarEl>
           )
           : (
-            <SidebarWrapper>
+            <SidebarEl>
               {children}
-            </SidebarWrapper>
+            </SidebarEl>
           )
       }
     </>

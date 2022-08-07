@@ -10,19 +10,16 @@ const Wrapper = styled.div`
   gap: 10px;
   width: 100%;
   height: 45px;
-  margin: 0 0 20px 0;
   padding: 0 15px 0 10px;
 
-  border-radius: 13px;
+  border-radius: 18px;
   background: ${props => props.theme.TERTIARY_BACKGROUND_COLOR};
 
   i {
-    padding: 7px;
+    padding: 7px 3px 7px 7px;
 
-    border-radius: 7px;
     font-size: 12px;
-    color: ${props => props.theme.THEME_BUTTON_COLOR_A};
-    background: ${props => props.theme.THEME_BUTTON_BACKGROUND_A};
+    color: ${props => props.theme.QUINARY_BACKGROUND_COLOR};
   }
 `
 const SearchEl = styled.input`
@@ -34,7 +31,7 @@ const SearchEl = styled.input`
   font-family: ${commonTheme.fonts.Inter};
 
   &::placeholder {
-    color: rgba(255, 255, 255, .6);
+    color: ${props => props.theme.QUINARY_BACKGROUND_COLOR};
   }
 `
 
@@ -47,7 +44,7 @@ export const Search: FC<SearchPropsType> = ({searchQuery, onSearchChange}) => {
   return (
     <Wrapper>
       <i className="far fa-search" aria-hidden="true"></i>
-      <SearchEl placeholder={'Фильтр todo...'} value={searchQuery} onChange={(e) => onSearchChange(e)}>
+      <SearchEl placeholder={'Поиск...'} value={searchQuery} onChange={(e) => onSearchChange(e)}>
       </SearchEl>
     </Wrapper>
   );

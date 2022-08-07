@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {darkTheme, lightTheme} from '../../themes';
+import {commonTheme, darkTheme, lightTheme} from '../../themes';
 import {setTheme, themeSelector} from '../../features/themeSlice';
 
 const themes = [
@@ -11,13 +11,16 @@ const themes = [
 ]
 
 const StyledButton = styled.button`
-  position: relative;
+  position: fixed;
+  z-index: 3;
+  right: 40px;
+  bottom: 30px;
 
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   padding: 1px 0 0 0;
 
-  font-size: 21px;
+  font-size: 24px;
   color: ${props => props.theme.THEME_SWITCHER_COLOR};
 
   cursor: pointer;
@@ -25,6 +28,11 @@ const StyledButton = styled.button`
   border-radius: 50%;
   background: ${props => props.theme.THEME_SWITCHER_BACKGROUND};
   box-shadow: none;
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    right: var(--unit);
+    bottom: var(--unit);
+  }
 `;
 
 export const ThemeSwitch: FC = () => {

@@ -55,8 +55,8 @@ function NotFound() {
   return (
     <Section>
       <Title>404 :(</Title>
-      <Button as={Link} to={'/todo'}>
-        Перейти к todo
+      <Button as={Link} to={'/'}>
+        К списку задач
         <i className="far fa-arrow-right" aria-hidden="true"></i>
       </Button>
     </Section>
