@@ -94,6 +94,10 @@ const Container = styled.div`
   width: calc(100% - 35px - 15px);
 
   border-bottom: 1px solid ${props => props.theme.TERTIARY_BACKGROUND_COLOR};
+
+  @media (max-width: ${commonTheme.media.tab}) {
+    width: calc(100% - 40px - 15px);
+  }
 `
 const Wrapper = styled.div<{ isEdited: boolean }>`
   display: flex;

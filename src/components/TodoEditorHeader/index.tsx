@@ -105,11 +105,9 @@ export const TodoEditorHeader: FC = () => {
           isEdit
             ? <Button isDisabled={editorQuery ? editorQuery.length < 3 : true} isEdit={isEdit} onClick={onClickUpdateTodo}>
               <i className="fal fa-check" aria-hidden="true"></i>
-              { window.innerWidth > parseInt(commonTheme.media.tab) && 'Сохранить'}
             </Button>
             : <Button isDisabled={editorQuery ? editorQuery.length < 3 : true} onClick={onClickAddTodo}>
               <i className="fal fa-plus" aria-hidden="true"></i>
-              { window.innerWidth > parseInt(commonTheme.media.tab) && 'Добавить'}
             </Button>
         }
         <BellButton>

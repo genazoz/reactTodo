@@ -15,6 +15,10 @@ const Wrapper = styled.div`
   border-radius: 18px;
   background: ${props => props.theme.TERTIARY_BACKGROUND_COLOR};
 
+  @media (max-width: ${commonTheme.media.tab}) {
+    height: 50px;
+  }
+
   i {
     padding: 7px 3px 7px 7px;
 
@@ -41,7 +45,8 @@ const SearchEl = styled.input`
   }
 
   @media (max-width: ${commonTheme.media.tab}) {
-    font-size: ${commonTheme.fontSizes.s};
+    font-size: ${commonTheme.fontSizes.r};
+    font-weight: 500;
   }
 `
 

@@ -54,8 +54,11 @@ const NotFound = styled.span`
   height: 100px;
   margin: auto;
 
+  font-size: ${commonTheme.fontSizes.s};
   font-family: ${commonTheme.fonts.Inter};
   color: ${props => props.theme.QUATERNARY_BACKGROUND_COLOR};
+  
+  pointer-events: none;
 `
 const TodosSearchWrapper = styled.div`
   margin: -7px -6px 0 -6px;
