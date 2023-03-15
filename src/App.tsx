@@ -2,7 +2,7 @@ import React from 'react';
 import {ThemeSwitch} from './components';
 import Router from "./routes";
 import {useSelector} from "react-redux";
-import {themeSelector} from "./features/themeSlice";
+import {themeSelector} from "./features/themeSlice/themeSlice";
 import {ThemeProvider} from "styled-components";
 import GlobalStyles from "./globalStyles";
 import FontStyles from "./fonts/fontStyles";

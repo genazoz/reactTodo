@@ -3,6 +3,20 @@ import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {commonTheme} from "../themes";
 
+function NotFound() {
+  return (
+    <Section data-testid={'not-found-page'}>
+      <Title>404 :(</Title>
+      <Button as={Link} to={'/'}>
+        К списку задач
+        <i className="far fa-arrow-right" aria-hidden="true"></i>
+      </Button>
+    </Section>
+  );
+}
+
+export default NotFound;
+
 const Section = styled.section`
   position: absolute;
   top: 0;
@@ -50,17 +64,3 @@ const Button = styled.button`
     font-size: 14px;
   }
 `
-
-function NotFound() {
-  return (
-    <Section>
-      <Title>404 :(</Title>
-      <Button as={Link} to={'/'}>
-        К списку задач
-        <i className="far fa-arrow-right" aria-hidden="true"></i>
-      </Button>
-    </Section>
-  );
-}
-
-export default NotFound;

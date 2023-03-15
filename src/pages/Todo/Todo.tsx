@@ -1,12 +1,32 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {commonTheme} from "../themes";
-import {Sidebar, TodosList} from "../components/";
-import TodoEditor from "../components/TodoEditor";
+import {commonTheme} from "../../themes";
+import {Sidebar, TodosList} from "../../components";
+import TodoEditor from "../../components/TodoEditor";
 
 const mobGap = 30;
 const paddingYTop = 50;
 const paddingYBottom = 30;
+
+function Todo() {
+  const [isResizing, setIsResizing] = useState(false);
+
+  return (
+    <Section data-testid={'main-page'}>
+      <Aside isResizing={isResizing}>
+        <Sidebar isResizing={isResizing} setIsResizing={setIsResizing} resizable>
+          <TodosList/>
+        </Sidebar>
+      </Aside>
+      <Content isResizing={isResizing}>
+        <BackdropBlur isResizing={isResizing}/>
+        <TodoEditor/>
+      </Content>
+    </Section>
+  );
+}
+
+export default Todo;
 
 const Section = styled.section`
   display: flex;
@@ -84,23 +104,3 @@ const BackdropBlur = styled.div<{ isResizing: boolean }>`
     pointer-events: all;
   `}
 `
-
-function Todo() {
-  const [isResizing, setIsResizing] = useState(false);
-
-  return (
-    <Section>
-      <Aside isResizing={isResizing}>
-        <Sidebar isResizing={isResizing} setIsResizing={setIsResizing} resizable>
-          <TodosList/>
-        </Sidebar>
-      </Aside>
-      <Content isResizing={isResizing}>
-        <BackdropBlur isResizing={isResizing}/>
-        <TodoEditor/>
-      </Content>
-    </Section>
-  );
-}
-
-export default Todo;

@@ -2,6 +2,23 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 import {commonTheme} from "../../themes";
 
+
+type SearchPropsType = {
+  searchQuery: string,
+  onSearchChange: (e: any) => void;
+  "data-testid"?: string
+}
+
+export const Search: FC<SearchPropsType> = ({searchQuery, onSearchChange, ...rest}) => {
+  return (
+    <Wrapper>
+      <i className="far fa-search" aria-hidden="true"></i>
+      <SearchEl {...rest} placeholder={'Поиск...'} value={searchQuery} onChange={(e) => onSearchChange(e)}>
+      </SearchEl>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
   position: relative;
 
@@ -49,18 +66,3 @@ const SearchEl = styled.input`
     font-weight: 500;
   }
 `
-
-type SearchPropsType = {
-  searchQuery: string,
-  onSearchChange: (e: any) => void;
-}
-
-export const Search: FC<SearchPropsType> = ({searchQuery, onSearchChange}) => {
-  return (
-    <Wrapper>
-      <i className="far fa-search" aria-hidden="true"></i>
-      <SearchEl placeholder={'Поиск...'} value={searchQuery} onChange={(e) => onSearchChange(e)}>
-      </SearchEl>
-    </Wrapper>
-  );
-};

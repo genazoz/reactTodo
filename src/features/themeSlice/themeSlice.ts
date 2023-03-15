@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {darkTheme} from '../themes';
-import {RootState} from "../app/store";
+import {darkTheme} from '../../themes';
+import {RootState} from "../../app/store";
 
 type themeSliceState = {
   theme: {
@@ -11,7 +11,7 @@ type themeSliceState = {
   }
 }
 
-const initialState: themeSliceState = {
+export const initialState: themeSliceState = {
   theme: darkTheme
 }
 

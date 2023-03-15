@@ -3,7 +3,42 @@ import styled from "styled-components";
 import {Todo, TodosSearch} from "../";
 import {commonTheme} from "../../themes";
 import {useSelector} from "react-redux";
-import {todosSelector} from "../../features/todoSlice";
+import {todosSelector} from "../../features/todoSlice/todoSlice";
+
+enum searchStatus {
+  NOT_FOUNDED = 'Не найдено',
+  ADD_TODO = 'Добавьте todo'
+}
+
+export const TodosList: FC = memo(() => {
+  const {todos, searchQuery} = useSelector(todosSelector)
+
+  const filteredTodos = !searchQuery
+    ? todos
+    : todos.filter((todo) =>
+      todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+  return (
+    <Container>
+      <TodosSearchWrapper>
+        <TodosSearch/>
+      </TodosSearchWrapper>
+      {filteredTodos.length > 0
+        ?
+        <TodosListEl>
+          {filteredTodos.map((todo) => <Todo {...todo} key={todo.id}/>).reverse()}
+        </TodosListEl>
+        :
+        <NotFound>
+          {searchQuery
+            ? searchStatus.NOT_FOUNDED
+            : searchStatus.ADD_TODO}
+        </NotFound>
+      }
+    </Container>
+  );
+});
 
 const Container = styled.div`
   overflow: hidden;
@@ -67,38 +102,3 @@ const NotFound = styled.span`
 const TodosSearchWrapper = styled.div`
   margin: -7px -6px 0 -6px;
 `
-
-enum searchStatus {
-  NOT_FOUNDED = 'Не найдено',
-  ADD_TODO = 'Добавьте todo'
-}
-
-export const TodosList: FC = memo(() => {
-  const {todos, searchQuery} = useSelector(todosSelector)
-
-  const filteredTodos = !searchQuery
-    ? todos
-    : todos.filter((todo) =>
-      todo.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-  return (
-    <Container>
-      <TodosSearchWrapper>
-        <TodosSearch/>
-      </TodosSearchWrapper>
-      {filteredTodos.length > 0
-        ?
-        <TodosListEl>
-          {filteredTodos.map((todo) => <Todo {...todo} key={todo.id}/>).reverse()}
-        </TodosListEl>
-        :
-        <NotFound>
-          {searchQuery
-            ? searchStatus.NOT_FOUNDED
-            : searchStatus.ADD_TODO}
-        </NotFound>
-      }
-    </Container>
-  );
-});

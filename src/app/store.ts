@@ -20,8 +20,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export const store = configureStore({
+export const createReduxStore = (initialState?: {}) => configureStore({
   reducer: persistedReducer,
+  preloadedState: initialState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -29,6 +30,8 @@ export const store = configureStore({
       },
     }),
 })
+
+export const store = createReduxStore();
 
 export const persistor = persistStore(store)
 

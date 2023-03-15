@@ -9,9 +9,102 @@ import {
   todosSelector,
   TodoStatusEnum,
   TodoType
-} from "../../features/todoSlice";
+} from "../../features/todoSlice/todoSlice";
 import {commonTheme} from "../../themes";
 import {useSelector} from "react-redux";
+
+export const Todo: FC<TodoType> = ({id, status, title, text, isEdited}) => {
+  const dispatch = useAppDispatch();
+  const {searchQuery, editorQuery} = useSelector(todosSelector)
+  const [searchedTitle, setSearchedTitle] = useState<string | React.ReactNode[]>(title);
+
+  let statusList: TodoStatusEnum[] = [
+    TodoStatusEnum.WAITING,
+    TodoStatusEnum.PROGRESS,
+    TodoStatusEnum.FINISHED
+  ];
+
+  const onClickTodo = () => {
+    const currentStatus = statusList.findIndex(x => x === status);
+    const newStatus = currentStatus === statusList.length - 1 ? statusList[0] : statusList[currentStatus + 1];
+    dispatch(setStatus({id: id, status: newStatus}));
+
+    if (isEdited && status === TodoStatusEnum.FINISHED) {
+      dispatch(setEditingTodo({id: id}));
+    }
+  }
+  const onRemoveTodo = (e: any) => {
+    e.stopPropagation();
+
+    dispatch(removeTodo({id: id}));
+  }
+  const onEditTodo = (e: any) => {
+    e.stopPropagation();
+
+    dispatch(setEditingTodo({id: id}));
+    dispatch(setEditQuery({query: title}));
+  }
+
+  useLayoutEffect(() => {
+    if (!searchQuery) {
+      setSearchedTitle(title);
+      return;
+    }
+
+    const idx = title.toLowerCase().indexOf(searchQuery.toLowerCase());
+
+    if (idx < 0) return;
+
+    setSearchedTitle(
+      [title.substring(0, idx),
+        <span>{title.substring(idx, idx + searchQuery.length)}</span>,
+        title.substring(idx + searchQuery.length)])
+  }, [searchQuery, editorQuery])
+
+  const getIcon = () => {
+    switch (status) {
+      case TodoStatusEnum.WAITING:
+        return <i className="fal fa-hourglass-start" aria-hidden="true"></i>;
+        break;
+      case TodoStatusEnum.PROGRESS:
+        return <i className="far fa-spinner" aria-hidden="true"></i>;
+        break;
+      case TodoStatusEnum.FINISHED:
+        return <i className="far fa-check" aria-hidden="true"></i>;
+        break;
+    }
+  }
+
+  return (
+    <TodoEl data-testid={'todo'} className={'todo'} isEdited={isEdited} onClick={() => onClickTodo()}>
+      <IconWrapper status={status}>
+        {getIcon()}
+      </IconWrapper>
+      <Container>
+        <Wrapper isEdited={isEdited}>
+          <Title status={status} data-testid={'todo-title'}>
+            {Array.isArray(searchedTitle)
+              ? searchedTitle.map((txt, i) => <React.Fragment key={i}>{txt}</React.Fragment>)
+              : searchedTitle
+            }
+          </Title>
+          <Text>
+            {text}
+          </Text>
+        </Wrapper>
+        {status !== TodoStatusEnum.FINISHED
+          && <Edit data-testid={'todo-edit-btn'} onClick={(e) => onEditTodo(e)} isEdited={isEdited}>
+            {isEdited
+              ? <i className="fal fa-times" aria-hidden="true"></i>
+              : <i className="fal fa-pen" aria-hidden="true"></i>}
+          </Edit>}
+        <Remove data-testid={'todo-remove-btn'} onClick={(e) => onRemoveTodo(e)}>
+          <i className="fal fa-minus" aria-hidden="true"></i>
+        </Remove>
+      </Container>
+    </TodoEl>
+  );
+};
 
 const TodoEl = styled.div<{ isEdited: boolean }>`
   position: relative;
@@ -197,96 +290,3 @@ const Edit = styled(Button)<{ isEdited: boolean }>`
     color: red;
   `}
 `
-
-export const Todo: FC<TodoType> = ({id, status, title, text, isEdited}) => {
-  const dispatch = useAppDispatch();
-  const {searchQuery, editorQuery} = useSelector(todosSelector)
-  const [searchedTitle, setSearchedTitle] = useState<string | React.ReactNode[]>(title);
-
-  let statusList: TodoStatusEnum[] = [
-    TodoStatusEnum.WAITING,
-    TodoStatusEnum.PROGRESS,
-    TodoStatusEnum.FINISHED
-  ];
-
-  const onClickTodo = () => {
-    const currentStatus = statusList.findIndex(x => x === status);
-    const newStatus = currentStatus === statusList.length - 1 ? statusList[0] : statusList[currentStatus + 1];
-    dispatch(setStatus({id: id, status: newStatus}));
-
-    if (isEdited && status === TodoStatusEnum.FINISHED) {
-      dispatch(setEditingTodo({id: id}));
-    }
-  }
-  const onRemoveTodo = (e: any) => {
-    e.stopPropagation();
-
-    dispatch(removeTodo({id: id}));
-  }
-  const onEditTodo = (e: any) => {
-    e.stopPropagation();
-
-    dispatch(setEditingTodo({id: id}));
-    dispatch(setEditQuery({query: title}));
-  }
-
-  useLayoutEffect(() => {
-    if (!searchQuery) {
-      setSearchedTitle(title);
-      return;
-    }
-
-    const idx = title.toLowerCase().indexOf(searchQuery.toLowerCase());
-
-    if (idx < 0) return;
-
-    setSearchedTitle(
-      [title.substring(0, idx),
-        <span>{title.substring(idx, idx + searchQuery.length)}</span>,
-        title.substring(idx + searchQuery.length)])
-  }, [searchQuery, editorQuery])
-
-  const getIcon = () => {
-    switch (status) {
-      case TodoStatusEnum.WAITING:
-        return <i className="fal fa-hourglass-start" aria-hidden="true"></i>;
-        break;
-      case TodoStatusEnum.PROGRESS:
-        return <i className="far fa-spinner" aria-hidden="true"></i>;
-        break;
-      case TodoStatusEnum.FINISHED:
-        return <i className="far fa-check" aria-hidden="true"></i>;
-        break;
-    }
-  }
-
-  return (
-    <TodoEl className={'todo'} isEdited={isEdited} onClick={() => onClickTodo()}>
-      <IconWrapper status={status}>
-        {getIcon()}
-      </IconWrapper>
-      <Container>
-        <Wrapper isEdited={isEdited}>
-          <Title status={status}>
-            {Array.isArray(searchedTitle)
-              ? searchedTitle.map((txt, i) => <React.Fragment key={i}>{txt}</React.Fragment>)
-              : searchedTitle
-            }
-          </Title>
-          <Text>
-            {text}
-          </Text>
-        </Wrapper>
-        {status !== TodoStatusEnum.FINISHED
-          && <Edit onClick={(e) => onEditTodo(e)} isEdited={isEdited}>
-            {isEdited
-              ? <i className="fal fa-times" aria-hidden="true"></i>
-              : <i className="fal fa-pen" aria-hidden="true"></i>}
-          </Edit>}
-        <Remove onClick={(e) => onRemoveTodo(e)}>
-          <i className="fal fa-minus" aria-hidden="true"></i>
-        </Remove>
-      </Container>
-    </TodoEl>
-  );
-};

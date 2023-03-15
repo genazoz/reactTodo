@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from "../app/store";
+import {RootState} from "../../app/store";
 
 export enum TodoStatusEnum {
   WAITING = 'waiting',
@@ -21,7 +21,7 @@ interface TodoSliceState {
   editorQuery: string,
 }
 
-const initialState: TodoSliceState = {
+export const initialState: TodoSliceState = {
   todos: [],
   searchQuery: '',
   editorQuery: ''
@@ -62,7 +62,7 @@ export const todoSlice = createSlice({
           });
     },
     setEditQuery(state, action: PayloadAction<{ query: string }>) {
-      state.editorQuery= action.payload.query;
+      state.editorQuery = action.payload.query;
     },
   },
 })

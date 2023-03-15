@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useAppDispatch} from "../../app/store";
-import {setQuery, todosSelector} from "../../features/todoSlice";
+import {setQuery, todosSelector} from "../../features/todoSlice/todoSlice";
 import {Search} from "../Search";
 import {useSelector} from "react-redux";
 
@@ -13,7 +13,7 @@ export const TodosSearch: FC = () => {
   };
 
   return (
-    <Search searchQuery={searchQuery} onSearchChange={(e) => onSearchChange(e)} />
+    <Search data-testid={'search-todo-input'} searchQuery={searchQuery} onSearchChange={(e) => onSearchChange(e)} />
   );
 };
 

@@ -1,9 +1,30 @@
 import React, {FC} from 'react';
 import {useAppDispatch} from "../../app/store";
 import {useSelector} from "react-redux";
-import {setEditQuery, todosSelector} from "../../features/todoSlice";
+import {setEditQuery, todosSelector} from "../../features/todoSlice/todoSlice";
 import styled from "styled-components";
 import {commonTheme} from "../../themes";
+
+export const TodoEditorTextarea: FC = () => {
+  const dispatch = useAppDispatch();
+  const {editorQuery} = useSelector(todosSelector);
+
+  const onTextareaInput = (e: any) => {
+    dispatch(setEditQuery({query: e.target.value}))
+  }
+
+  return (
+    <Wrapper>
+      <i className="fa fa-pen" aria-hidden="true"></i>
+      <Textarea
+        data-testid={'todo-editor-textarea'}
+        placeholder={'Введите текст...'}
+        value={editorQuery}
+        onChange={(e) => onTextareaInput(e)}
+      />
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,19 +94,3 @@ const Textarea = styled.textarea`
     }
   }
 `
-
-export const TodoEditorTextarea: FC = () => {
-  const dispatch = useAppDispatch();
-  const {editorQuery} = useSelector(todosSelector);
-
-  const onTextareaInput = (e: any) => {
-    dispatch(setEditQuery({query: e.target.value}))
-  }
-
-  return (
-    <Wrapper>
-      <i className="fa fa-pen" aria-hidden="true"></i>
-      <Textarea placeholder={'Введите текст...'} value={editorQuery} onChange={(e) => onTextareaInput(e)}/>
-    </Wrapper>
-  );
-};

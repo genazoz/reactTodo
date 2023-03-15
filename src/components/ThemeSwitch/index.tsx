@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {commonTheme, darkTheme, lightTheme} from '../../themes';
-import {setTheme, themeSelector} from '../../features/themeSlice';
+import {setTheme, themeSelector} from '../../features/themeSlice/themeSlice';
 
 const themes = [
   darkTheme,
@@ -45,7 +45,7 @@ export const ThemeSwitch: FC = () => {
     dispatch(setTheme(newTheme));
   }
 
-  return <StyledButton onClick={() => onClickToggleTheme()}>
+  return <StyledButton data-testid={'theme-toggle-btn'} onClick={() => onClickToggleTheme()}>
     {theme.name === 'dark' ? (<i className="fa fa-sun"></i>) : (<i className="fa fa-moon"></i>)}
   </StyledButton>
 }

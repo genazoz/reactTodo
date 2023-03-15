@@ -1,5 +1,5 @@
 import {Route, Routes} from "react-router-dom";
-import Todo from "../pages/Todo";
+import Todo from "../pages/Todo/Todo";
 import NotFound from "../pages/NotFound";
 
 const Router = () => {

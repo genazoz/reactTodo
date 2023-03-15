@@ -14,6 +14,7 @@ const ButtonEl = styled.button<{ isDisabled: boolean, isEdit?: boolean }>`
   letter-spacing: .3px;
   color: ${props => props.theme.THEME_BUTTON_COLOR_A};
 
+  pointer-events: all;
   border-radius: 50px;
   border: 1px solid transparent;
   cursor: pointer;
@@ -55,11 +56,12 @@ type ButtonPropsType = {
   isDisabled?: boolean;
   isEdit?: boolean;
   onClick?: (e: any) => void;
+  "data-testid"?: string;
 }
 
-export const Button: FC<ButtonPropsType> = ({children, isDisabled = false, isEdit = false, onClick}) => {
+export const Button: FC<ButtonPropsType> = ({children, isDisabled = false, isEdit = false, onClick, ...rest}) => {
   return (
-    <ButtonEl isDisabled={isDisabled} isEdit={isEdit} {...(onClick ? {onClick: (e) => onClick(e)} : {})} >
+    <ButtonEl isDisabled={isDisabled} isEdit={isEdit} {...(onClick ? {onClick: (e) => onClick(e)} : {})} {...rest} >
       {children}
     </ButtonEl>
   );
